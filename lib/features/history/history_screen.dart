@@ -10,6 +10,7 @@ import '../../core/widgets/header_curves.dart';
 import '../../core/widgets/search_pill.dart';
 import '../bills/presentation/bill_card.dart';
 import '../bills/presentation/bill_history_controller.dart';
+import '../split_bill/bill_navigation.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});
@@ -85,7 +86,10 @@ class HistoryScreen extends ConsumerWidget {
         sliver: SliverList.separated(
           itemCount: h.bills.length,
           separatorBuilder: (_, _) => const SizedBox(height: 10),
-          itemBuilder: (_, i) => BillCard(summary: h.bills[i]),
+          itemBuilder: (_, i) => BillCard(
+            summary: h.bills[i],
+            onTap: () => openBill(context, h.bills[i]),
+          ),
         ),
       ),
       SliverToBoxAdapter(

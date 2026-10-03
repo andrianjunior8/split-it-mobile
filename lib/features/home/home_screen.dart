@@ -8,6 +8,7 @@ import '../../core/widgets/search_pill.dart';
 import '../auth/data/auth_repository.dart';
 import '../bills/presentation/bill_card.dart';
 import '../bills/presentation/bills_providers.dart';
+import '../split_bill/bill_navigation.dart';
 import 'home_header.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -30,7 +31,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(Routes.splitBill),
+        onPressed: () => startNewBill(context, ref),
         backgroundColor: AppColors.tealLight,
         foregroundColor: Colors.white,
         shape: const CircleBorder(),
@@ -128,7 +129,10 @@ class _RecentActivity extends ConsumerWidget {
           for (final summary in value)
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: BillCard(summary: summary),
+              child: BillCard(
+                summary: summary,
+                onTap: () => openBill(context, summary),
+              ),
             ),
         ],
       ),

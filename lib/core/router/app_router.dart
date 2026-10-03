@@ -16,6 +16,10 @@ import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/onboarding/splash_screen.dart';
 import '../../features/search/search_screen.dart';
 import '../../features/settings/settings_screen.dart';
+import '../../features/split_bill/menu_screen.dart';
+import '../../features/split_bill/split_bill_tab.dart';
+import '../../features/split_bill/splitters_screen.dart';
+import '../../features/split_bill/summary_screen.dart';
 import 'auth_redirect.dart';
 import 'routes.dart';
 
@@ -39,12 +43,29 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: Routes.register, builder: (_, _) => const RegisterScreen()),
       GoRoute(path: Routes.search, builder: (_, _) => const SearchScreen()),
       GoRoute(path: Routes.settings, builder: (_, _) => const SettingsScreen()),
+      GoRoute(
+        path: Routes.bill,
+        builder: (_, state) =>
+            SplittersScreen(billId: state.pathParameters['id']!),
+        routes: [
+          GoRoute(
+            path: 'menu',
+            builder: (_, state) =>
+                MenuScreen(billId: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: 'summary',
+            builder: (_, state) =>
+                SummaryScreen(billId: state.pathParameters['id']!),
+          ),
+        ],
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => HomeShell(shell: shell),
         branches: [
           _tab(Routes.home, const HomeScreen()),
           _tab(Routes.history, const HistoryScreen()),
-          _tab(Routes.splitBill, const PlaceholderTab(title: 'Split Bill')),
+          _tab(Routes.splitBill, const SplitBillTab()),
           _tab(Routes.travelMode, const PlaceholderTab(title: 'Travel Mode')),
         ],
       ),

@@ -51,6 +51,7 @@ class InMemoryBillsRepository implements BillsRepository {
     String? query,
     int limit = 50,
     int offset = 0,
+    BillStatus? status,
   }) async {
     final user = _requireUser();
     final q = query?.trim().toLowerCase() ?? '';
@@ -58,6 +59,7 @@ class InMemoryBillsRepository implements BillsRepository {
         _bills.values
             .where((b) => _canRead(b, user.id))
             .where((b) => q.isEmpty || b.title.toLowerCase().contains(q))
+            .where((b) => status == null || b.status == status)
             .toList()
           ..sort((a, b) {
             final byDate = b.billDate.compareTo(a.billDate);

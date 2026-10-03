@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:splitit/features/auth/data/app_user.dart';
 import 'package:splitit/features/bills/data/bills_repository.dart';
 import 'package:splitit/features/bills/data/in_memory_bills_repository.dart';
+import 'package:splitit/features/bills/domain/bill.dart';
 import 'package:splitit/features/bills/domain/bill_detail.dart';
 import 'package:splitit/features/bills/presentation/bill_history_controller.dart';
 
@@ -19,13 +20,19 @@ class FlakyRepo extends InMemoryBillsRepository {
     String? query,
     int limit = 50,
     int offset = 0,
+    BillStatus? status,
   }) {
     calls++;
     if (failNext) {
       failNext = false;
       throw const BillsFailure('offline');
     }
-    return super.listBills(query: query, limit: limit, offset: offset);
+    return super.listBills(
+      query: query,
+      limit: limit,
+      offset: offset,
+      status: status,
+    );
   }
 }
 

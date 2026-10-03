@@ -14,4 +14,10 @@ class Routes {
 
   static const search = '/search';
   static const settings = '/settings';
+
+  // Split Bill steps for one bill: splitters → menu → summary.
+  static const bill = '/bills/:id';
+  static String billSplitters(String id) => '/bills/$id';
+  static String billMenu(String id) => '/bills/$id/menu';
+  static String billSummary(String id) => '/bills/$id/summary';
 }

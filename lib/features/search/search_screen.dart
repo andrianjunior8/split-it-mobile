@@ -9,6 +9,7 @@ import '../../core/widgets/back_link.dart';
 import '../../core/widgets/search_pill.dart';
 import '../bills/presentation/bill_card.dart';
 import '../bills/presentation/bills_providers.dart';
+import '../split_bill/bill_navigation.dart';
 import 'recent_searches_repository.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
@@ -175,7 +176,13 @@ class _Results extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
         itemCount: value.length,
         separatorBuilder: (_, _) => const SizedBox(height: 10),
-        itemBuilder: (_, i) => BillCard(summary: value[i], onTap: onOpen),
+        itemBuilder: (_, i) => BillCard(
+          summary: value[i],
+          onTap: () {
+            onOpen();
+            openBill(context, value[i]);
+          },
+        ),
       ),
       AsyncError(:final error) => Padding(
         padding: const EdgeInsets.all(24),
