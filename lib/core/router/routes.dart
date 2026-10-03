@@ -20,4 +20,5 @@ class Routes {
   static String billSplitters(String id) => '/bills/$id';
   static String billMenu(String id) => '/bills/$id/menu';
   static String billSummary(String id) => '/bills/$id/summary';
+  static String billShare(String id) => '/bills/$id/share';
 }

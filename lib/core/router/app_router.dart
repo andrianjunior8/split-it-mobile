@@ -17,6 +17,7 @@ import '../../features/onboarding/splash_screen.dart';
 import '../../features/search/search_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/split_bill/menu_screen.dart';
+import '../../features/split_bill/share/share_bill_screen.dart';
 import '../../features/split_bill/split_bill_tab.dart';
 import '../../features/split_bill/splitters_screen.dart';
 import '../../features/split_bill/summary_screen.dart';
@@ -57,6 +58,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: 'summary',
             builder: (_, state) =>
                 SummaryScreen(billId: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: 'share',
+            builder: (_, state) =>
+                ShareBillScreen(billId: state.pathParameters['id']!),
           ),
         ],
       ),

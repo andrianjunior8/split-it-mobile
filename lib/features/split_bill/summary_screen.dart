@@ -85,6 +85,11 @@ class SummaryScreen extends ConsumerWidget {
     return BillStepScaffold(
       billId: billId,
       actions: [
+        IconButton(
+          onPressed: () => context.push(Routes.billShare(billId)),
+          tooltip: 'Share',
+          icon: const Icon(Icons.share_outlined, color: AppColors.primary),
+        ),
         if (canEdit)
           IconButton(
             onPressed: () => _delete(context, ref),

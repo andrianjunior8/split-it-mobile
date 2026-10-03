@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.20.3
   shared_preferences: ^2.5.5
   image_picker: ^1.2.3
+  share_plus: ^13.3.1
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +53,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  share_plus_platform_interface: ^7.2.0
+  plugin_platform_interface: ^2.1.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
