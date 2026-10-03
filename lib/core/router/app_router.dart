@@ -8,10 +8,13 @@ import '../../features/auth/data/auth_repository.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/auth/presentation/sign_up_screen.dart';
+import '../../features/home/home_screen.dart';
 import '../../features/home/home_shell.dart';
 import '../../features/home/placeholder_tab.dart';
 import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/onboarding/splash_screen.dart';
+import '../../features/search/search_screen.dart';
+import '../../features/settings/settings_screen.dart';
 import 'auth_redirect.dart';
 import 'routes.dart';
 
@@ -33,10 +36,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: Routes.login, builder: (_, _) => const LoginScreen()),
       GoRoute(path: Routes.signUp, builder: (_, _) => const SignUpScreen()),
       GoRoute(path: Routes.register, builder: (_, _) => const RegisterScreen()),
+      GoRoute(path: Routes.search, builder: (_, _) => const SearchScreen()),
+      GoRoute(path: Routes.settings, builder: (_, _) => const SettingsScreen()),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => HomeShell(shell: shell),
         branches: [
-          _tab(Routes.home, const HomeTab()),
+          _tab(Routes.home, const HomeScreen()),
           _tab(Routes.history, const PlaceholderTab(title: 'History')),
           _tab(Routes.splitBill, const PlaceholderTab(title: 'Split Bill')),
           _tab(Routes.travelMode, const PlaceholderTab(title: 'Travel Mode')),

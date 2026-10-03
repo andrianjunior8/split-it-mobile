@@ -20,6 +20,9 @@ abstract class BillsRepository {
   /// Newest first. [query] matches the title, case-insensitively.
   Future<List<BillSummary>> listBills({String? query, int limit = 50});
 
+  /// Number of bills the user hosts or takes part in.
+  Future<int> countBills();
+
   Future<BillDetail> getBill(String id);
 
   /// Creates a bill hosted by the current user; the host is added as the
@@ -69,6 +72,10 @@ class SupabaseBillsRepository implements BillsRepository {
             .limit(limit);
         return rows.map(BillSummary.fromJson).toList();
       });
+
+  @override
+  Future<int> countBills() =>
+      _guard(() => _client.from('bills').count(sb.CountOption.exact));
 
   @override
   Future<BillDetail> getBill(String id) => _guard(() async {

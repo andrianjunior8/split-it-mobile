@@ -39,6 +39,13 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return repo;
 });
 
+/// The signed-in user, updated on login, logout and profile changes.
+final currentUserProvider = StreamProvider<AppUser?>((ref) async* {
+  final auth = ref.watch(authRepositoryProvider);
+  yield auth.currentUser;
+  yield* auth.authStateChanges();
+});
+
 class SupabaseAuthRepository implements AuthRepository {
   SupabaseAuthRepository(this._client);
 

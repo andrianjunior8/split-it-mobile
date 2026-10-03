@@ -100,6 +100,12 @@ class InMemoryBillsRepository implements BillsRepository {
   }
 
   @override
+  Future<int> countBills() async {
+    final user = _requireUser();
+    return _bills.values.where((b) => _canRead(b, user.id)).length;
+  }
+
+  @override
   Future<BillDetail> getBill(String id) async {
     final user = _requireUser();
     final bill = _bills[id];

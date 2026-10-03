@@ -11,4 +11,7 @@ class Routes {
   static const history = '/history';
   static const splitBill = '/split-bill';
   static const travelMode = '/travel-mode';
+
+  static const search = '/search';
+  static const settings = '/settings';
 }
