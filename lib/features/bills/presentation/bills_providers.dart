@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/bills_repository.dart';
 import '../domain/bill_detail.dart';
+import 'bill_history_controller.dart';
 
 /// Latest bills for Home's Recent Activity.
 final recentBillsProvider = FutureProvider.autoDispose<List<BillSummary>>(
@@ -25,4 +26,5 @@ void invalidateBillLists(WidgetRef ref) {
   ref.invalidate(recentBillsProvider);
   ref.invalidate(billCountProvider);
   ref.invalidate(billSearchProvider);
+  ref.invalidate(billHistoryProvider);
 }

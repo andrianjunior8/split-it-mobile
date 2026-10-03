@@ -47,7 +47,11 @@ class InMemoryBillsRepository implements BillsRepository {
       );
 
   @override
-  Future<List<BillSummary>> listBills({String? query, int limit = 50}) async {
+  Future<List<BillSummary>> listBills({
+    String? query,
+    int limit = 50,
+    int offset = 0,
+  }) async {
     final user = _requireUser();
     final q = query?.trim().toLowerCase() ?? '';
     final bills =
@@ -61,7 +65,7 @@ class InMemoryBillsRepository implements BillsRepository {
                 ? byDate
                 : _createdOrder[b.id]!.compareTo(_createdOrder[a.id]!);
           });
-    return [for (final b in bills.take(limit)) _summary(b)];
+    return [for (final b in bills.skip(offset).take(limit)) _summary(b)];
   }
 
   BillSummary _summary(Bill bill) {

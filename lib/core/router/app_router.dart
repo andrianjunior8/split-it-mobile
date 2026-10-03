@@ -8,6 +8,7 @@ import '../../features/auth/data/auth_repository.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/auth/presentation/sign_up_screen.dart';
+import '../../features/history/history_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/home/home_shell.dart';
 import '../../features/home/placeholder_tab.dart';
@@ -42,7 +43,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _, shell) => HomeShell(shell: shell),
         branches: [
           _tab(Routes.home, const HomeScreen()),
-          _tab(Routes.history, const PlaceholderTab(title: 'History')),
+          _tab(Routes.history, const HistoryScreen()),
           _tab(Routes.splitBill, const PlaceholderTab(title: 'Split Bill')),
           _tab(Routes.travelMode, const PlaceholderTab(title: 'Travel Mode')),
         ],

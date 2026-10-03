@@ -18,7 +18,12 @@ class BillsFailure implements Exception {
 
 abstract class BillsRepository {
   /// Newest first. [query] matches the title, case-insensitively.
-  Future<List<BillSummary>> listBills({String? query, int limit = 50});
+  /// [offset] skips that many results, for paging.
+  Future<List<BillSummary>> listBills({
+    String? query,
+    int limit = 50,
+    int offset = 0,
+  });
 
   /// Number of bills the user hosts or takes part in.
   Future<int> countBills();
@@ -59,19 +64,23 @@ class SupabaseBillsRepository implements BillsRepository {
   final sb.SupabaseClient _client;
 
   @override
-  Future<List<BillSummary>> listBills({String? query, int limit = 50}) =>
-      _guard(() async {
-        var request = _client.from('bill_summaries').select();
-        final q = query?.trim() ?? '';
-        if (q.isNotEmpty) {
-          request = request.ilike('title', '%${_escapeLike(q)}%');
-        }
-        final rows = await request
-            .order('bill_date', ascending: false)
-            .order('created_at', ascending: false)
-            .limit(limit);
-        return rows.map(BillSummary.fromJson).toList();
-      });
+  Future<List<BillSummary>> listBills({
+    String? query,
+    int limit = 50,
+    int offset = 0,
+  }) => _guard(() async {
+    var request = _client.from('bill_summaries').select();
+    final q = query?.trim() ?? '';
+    if (q.isNotEmpty) {
+      request = request.ilike('title', '%${_escapeLike(q)}%');
+    }
+    final rows = await request
+        .order('bill_date', ascending: false)
+        .order('created_at', ascending: false)
+        .order('id')
+        .range(offset, offset + limit - 1);
+    return rows.map(BillSummary.fromJson).toList();
+  });
 
   @override
   Future<int> countBills() =>
